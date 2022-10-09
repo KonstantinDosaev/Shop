@@ -23,7 +23,7 @@ namespace Shop
             List<object> priceListList = new List<object>() { nVidia, radeon};
 
             object[] priceListArr = priceListList.ToArray();
-            priceListArr[0].Man
+            //priceListArr[0].Man
 
             while (true)
             {
