@@ -9,9 +9,9 @@ namespace Shop
     internal class PriceList
     {
         public static int CounterProductIner;  
-        public static void LaunchPrice(List<string> productMenu)
+        public static void LaunchPrice(object[] productMenu)
         {
-
+            productMenu
             string[] topMenu = { "Один", "Два", "Три" };
             //string[] productMenu = { "Dblz[f", "Ghjw", ":tcn" };
 
@@ -26,7 +26,7 @@ namespace Shop
                 Console.WriteLine("\n\n\n");
 
 
-                for (var i = 0; i < productMenu.Count; i++)
+                for (var i = 0; i < productMenu.Length; i++)
                 {
                     if (CounterProductIner == i)
                     {
@@ -45,7 +45,7 @@ namespace Shop
                 Console.WriteLine("\n\n");
                 switch (Console.ReadKey().Key)
                 {
-                    case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                    case ConsoleKey.DownArrow when CounterProductIner < productMenu.Length - 1:
                         CounterProductIner++;
                         break;
                     case ConsoleKey.DownArrow:
