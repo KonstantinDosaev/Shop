@@ -10,6 +10,8 @@ namespace Shop
 {
     internal class Product
     {
+        //private object advancedProperty;
+
         public string? TypeProduct { get; set; }
 
         public string? Manufacture { get; set; }
@@ -27,11 +29,15 @@ namespace Shop
             SalePrice = salePrice;
         }
 
-        public string BulledArray()
-        {
-            string element = $"\t{TypeProduct}\n\tПроизводитель : {Manufacture}\n\tМодель : {Model}\n\tЦена закупки : {Convert.ToString(PurchasePrice)}\n\tЦена продажи : {Convert.ToString(SalePrice)}";
-            return element;
-        }
+        //public string BulledString()
+        //{
+        //    if (TypeProduct == "Видеокарта")
+        //    {
+        //         advancedProperty = $"Графическая память: {VideoMemory} ГБ\n\tИнтерфейс подключения: {ConnectionInterface}";
+        //    }
+        //    string element = $"\t{TypeProduct}\n\tПроизводитель : {Manufacture}\n\tМодель : {Model}\n\t{advancedProperty}\n\tЦена закупки : {Convert.ToString(PurchasePrice)}\n\tЦена продажи : {Convert.ToString(SalePrice)}";
+        //    return element;
+        //}
         
     }
     internal class VideoCard : Product

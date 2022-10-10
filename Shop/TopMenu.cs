@@ -12,8 +12,8 @@ namespace Shop
         public static int CounterTopMenu;
         public static  void LaunchMenu()
         {
-            
-            string[] topMenu = { "Один", "Два", "Три" };
+
+            string[] topMenu = { "ПРАЙСЛИСТ", Included.TopMenuElement2, Included.TopMenuElement3 };
             while (true)
             {
                 Console.Clear();

@@ -9,15 +9,16 @@ namespace Shop
     internal class PriceList
     {
         public static int CounterProductIner;  
-        public static void LaunchPrice(object[] productMenu)
+        public static void LaunchPrice(List<string> productMenu)
         {
-            productMenu
-            string[] topMenu = { "Один", "Два", "Три" };
-            //string[] productMenu = { "Dblz[f", "Ghjw", ":tcn" };
+            
+            string[] topMenu = { "ПРАЙСЛИСТ", Included.TopMenuElement2, Included.TopMenuElement3 };
+            
 
             while (true)
             {
                 Console.Clear();
+
                 for (int i = 0; i < topMenu.Length; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
@@ -26,7 +27,7 @@ namespace Shop
                 Console.WriteLine("\n\n\n");
 
 
-                for (var i = 0; i < productMenu.Length; i++)
+                for (var i = 0; i < productMenu.Count; i++)
                 {
                     if (CounterProductIner == i)
                     {
@@ -41,27 +42,183 @@ namespace Shop
 
 
                 }
-
+                //Console.WriteLine("ПРОБЕЛ - ДОБАВИТЬ ПРОДУКТ....DELETE - УДАЛИТЬ");
                 Console.WriteLine("\n\n");
-                switch (Console.ReadKey().Key)
+
+                if (Included.NameUser == "admin")
                 {
-                    case ConsoleKey.DownArrow when CounterProductIner < productMenu.Length - 1:
-                        CounterProductIner++;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        CounterProductIner = 0;
-                        break;
-                    case ConsoleKey.UpArrow when CounterProductIner > 0:
-                        CounterProductIner--;
-                        break;
-                    case ConsoleKey.UpArrow when CounterProductIner == 0:
-                        return;
-                    case ConsoleKey.Escape:
-                        return;
-                        /*case ConsoleKey.Enter:
-                            return;*/ //           повесим выполнение покупки
+                    switch (TopMenu.CounterTopMenu)
+                    {
+                        case 0:
+                            Console.WriteLine("ПРОБЕЛ - ДОБАВИТЬ ПРОДУКТ....DELETE - УДАЛИТЬ");
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                    CounterProductIner++;
+                                    break;
+                                case ConsoleKey.DownArrow:
+                                    CounterProductIner = 0;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                    CounterProductIner--;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                    return;
+
+                                case ConsoleKey.Delete:
+                                    Console.WriteLine("ПРОДУКТ УДАЛЕН");
+                                    ProductManipulation.DeleteProduct();
+                                    break;
+                                case ConsoleKey.Spacebar:
+                                    CreatingList.AddProduct();//пробел добавить
+                                    break;
+                                case ConsoleKey.Escape:
+                                    return;
+                                /*case ConsoleKey.Enter:
+                                return;*/ //           повесим выполнение покупки
+
+                            }
+                            
+                            break;
+                        case 1:
+                            Console.WriteLine("ПРОБЕЛ - ОБРАБОТАТЬ ЗАКАЗ");
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                    CounterProductIner++;
+                                    break;
+                                case ConsoleKey.DownArrow:
+                                    CounterProductIner = 0;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                    CounterProductIner--;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                    return;
+
+                                case ConsoleKey.Spacebar:
+                                    ProductManipulation.BuyOrPerformAdmin();//пробел выполнить
+                                    break;
+                                case ConsoleKey.Escape:
+                                    return;
+                                /*case ConsoleKey.Enter:
+                                return;*/ //           повесим выполнение покупки
+
+                            }
+
+                            break;
+                        case 2:
+                            switch (Console.ReadKey().Key)
+                            {
+                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                    CounterProductIner++;
+                                    break;
+                                case ConsoleKey.DownArrow:
+                                    CounterProductIner = 0;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                    CounterProductIner--;
+                                    break;
+                                case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                    return;
+
+                                case ConsoleKey.Escape:
+                                    return;
+                                /*case ConsoleKey.Enter:
+                                return;*/ //           повесим выполнение покупки
+
+                            }
+
+                            break;
+                    }
+
+                    
+                }
+                else
+                {
+                    if (TopMenu.CounterTopMenu == 0)
+                    {
+                        Console.WriteLine("ENTER - ДОБАВИТЬ ПРОДУКТ В КОРЗИНУ");
+                        switch (Console.ReadKey().Key)
+                        {   
+
+                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                CounterProductIner++;
+                                break;
+                            case ConsoleKey.DownArrow:
+                                CounterProductIner = 0;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                CounterProductIner--;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                return;
+                            case ConsoleKey.Escape:
+                                return;
+                            case ConsoleKey.Enter:
+                                ProductManipulation.AddInCart();
+                                break;
+
+
+                        }
+                    }
+                    else if (TopMenu.CounterTopMenu == 1)
+                    {
+                        Console.WriteLine("ПРОБЕЛ - ЗАКАЗАТЬ....DELETE - УДАЛИТЬ");
+                        switch (Console.ReadKey().Key)
+                        {
+                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                CounterProductIner++;
+                                break;
+                            case ConsoleKey.DownArrow:
+                                CounterProductIner = 0;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                CounterProductIner--;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                return;
+
+                            case ConsoleKey.Delete:
+                                ProductManipulation.DeleteFromCart();
+                                break;
+                            case ConsoleKey.Escape:
+                                return;
+                            case ConsoleKey.Spacebar:
+                                ProductManipulation.BuyOrPerform();//пробел выполнить
+                                break;
+
+
+                        }
+                    }
+                    else if (TopMenu.CounterTopMenu == 2)
+                    {
+                        switch (Console.ReadKey().Key)
+                        {
+                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                                CounterProductIner++;
+                                break;
+                            case ConsoleKey.DownArrow:
+                                CounterProductIner = 0;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner > 0:
+                                CounterProductIner--;
+                                break;
+                            case ConsoleKey.UpArrow when CounterProductIner == 0:
+                                return;
+
+                      
+                                
+                            case ConsoleKey.Escape:
+                                return;
+                            
+
+
+                        }
+                    }
 
                 }
+
             }
         }
     }
