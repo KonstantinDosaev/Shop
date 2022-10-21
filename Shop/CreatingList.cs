@@ -9,67 +9,34 @@ namespace Shop
 {
     internal class CreatingList
     {
+        
         public static void AddProduct()
         {
-            Console.WriteLine("Тип продукта:");
-            string? typ = Console.ReadLine();
-
-            Console.WriteLine("Производитель:");
-            string? manufacture = Console.ReadLine();
-
-            Console.WriteLine("Модель:");
-            string? model = Console.ReadLine();
-
-            Console.WriteLine("Графическая память:");
-            float videoMemory = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Интерфейс подключения:");
-            string? interfaceConn = Console.ReadLine();
-
-            Console.WriteLine("Закупочная цена:");
-            float purchase = float.Parse(Console.ReadLine());
-
-            Console.WriteLine("Цена продажи:");
-            float sale = float.Parse(Console.ReadLine());
+          
 
 
+          Product addObj = new Product() ;
+          switch (VerticalMenu.CounterProductVertical)
+          {
+              case 0:  addObj = new VideoCard(); break;
+              case 1:  addObj = new HardDrive(); break;
+          }
+            
+         
 
-            VideoCard addObj = new VideoCard(typ, manufacture, model, videoMemory, interfaceConn, purchase, sale);
-
-            string addString = BulledString(addObj);
+          addObj.FillProduct();
 
 
-            List<string> priceList = Serialization.DeSerializationStrings();
+          List<Product> priceList = Serialization.DeSerializationStrings();
 
-            priceList.Add(addString);
+          priceList.Add(addObj);
 
-            Serialization.SerializationString(priceList);
-
+          Serialization.SerializationString(priceList);
+          
         }
 
 
 
-        public static string BulledString(VideoCard prod)
-        {
-            string element = $"\t{prod.TypeProduct}\n" +
-                             $"\tПроизводитель : {prod.Manufacture}\n" +
-                             $"\tМодель : {prod.Model}\n" +
-                             $"\tГрафическая память: {prod.VideoMemory} ГБ\n" +
-                             $"\tИнтерфейс подключения: {prod.ConnectionInterface}\n" +
-                             $"\tЦена закупки : {Convert.ToString(prod.PurchasePrice)}\n" +
-                             $"\tЦена продажи : {Convert.ToString(prod.SalePrice)}";
-            return element;
-        }
-        public static string BulledString(HardDrive prod)
-        {
-            string element = $"\t{prod.TypeProduct}\n" +
-                             $"\tПроизводитель : {prod.Manufacture}\n" +
-                             $"\tМодель : {prod.Model}\n" +
-                             $"\tГрафическая память: {prod.MemoryCapacity} ГБ\n" +
-                             $"\tИнтерфейс подключения: {prod.RotationSpeed} об/мин\n" +
-                             $"\tЦена закупки : {Convert.ToString(prod.PurchasePrice)}\n" +
-                             $"\tЦена продажи : {Convert.ToString(prod.SalePrice)}";
-            return element;
-        }
+
     }
 }

@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Shop
 {
-    internal class Product
+    [Serializable]
+    public  class Product
     {
-        //private object advancedProperty;
+        public Product(){}
 
         public string? TypeProduct { get; set; }
 
@@ -29,39 +30,39 @@ namespace Shop
             SalePrice = salePrice;
         }
 
-        //public string BulledString()
-        //{
-        //    if (TypeProduct == "Видеокарта")
-        //    {
-        //         advancedProperty = $"Графическая память: {VideoMemory} ГБ\n\tИнтерфейс подключения: {ConnectionInterface}";
-        //    }
-        //    string element = $"\t{TypeProduct}\n\tПроизводитель : {Manufacture}\n\tМодель : {Model}\n\t{advancedProperty}\n\tЦена закупки : {Convert.ToString(PurchasePrice)}\n\tЦена продажи : {Convert.ToString(SalePrice)}";
-        //    return element;
-        //}
-        
-    }
-    internal class VideoCard : Product
-    {
-        public VideoCard(string typeProduct, string manufacture, string model,float videoMemory, string connectionInterface, float purchasePrice, float salePrice) : base(typeProduct, manufacture, model, purchasePrice, salePrice)
+        public virtual void PrintProduct()
         {
-            VideoMemory = videoMemory;
-            ConnectionInterface = connectionInterface;
+            Console.WriteLine($"\t{TypeProduct}\n" +
+                                 $"\tПроизводитель : {Manufacture}\n" +
+                                 $"\tМодель : {Model}");
+
         }
 
-        public float VideoMemory { get; set; }
-        public string? ConnectionInterface { get; set; }
-
-
-    }
-
-    internal class HardDrive : Product
-    {
-        public HardDrive(string typeProduct, string manufacture, string model,float memoryCapacity, float rotationSpeed, float purchasePrice, float salePrice) : base(typeProduct, manufacture, model, purchasePrice, salePrice)
+        public void PrintPrice()
         {
+            Console.WriteLine($"\tЦена закупки : {PurchasePrice}\n" +
+                              $"\tЦена продажи : {SalePrice}\n");
         }
 
-        public float MemoryCapacity { get; set; }
-        public float RotationSpeed { get; set; }
+        public virtual void FillProduct()
+        {
+            Console.WriteLine("Тип продукта:");
+            TypeProduct = Console.ReadLine();
+
+            Console.WriteLine("Производитель:");
+             Manufacture = Console.ReadLine();
+
+            Console.WriteLine("Модель:");
+            Model= Console.ReadLine();
+
+            Console.WriteLine("Закупочная цена:");
+            PurchasePrice = float.Parse(Console.ReadLine());
+
+            Console.WriteLine("Цена продажи:");
+            SalePrice = float.Parse(Console.ReadLine());
+        }
+
+   
 
 
     }

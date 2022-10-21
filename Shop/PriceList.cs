@@ -8,215 +8,115 @@ namespace Shop
 {
     internal class PriceList
     {
-        public static int CounterProductIner;  
-        public static void LaunchPrice(List<string> productMenu)
+        public static int CounterProductIner;
+
+        public static void LaunchPrice(List<Product> productMenu)
         {
-            
-            string[] topMenu = { "ПРАЙСЛИСТ", Included.TopMenuElement2, Included.TopMenuElement3 };
-            
+
+            string[] topMenu = { "ПРАЙСЛИСТ", TopMenu.TopMenuElement2, TopMenu.TopMenuElement3 };
+
 
             while (true)
             {
                 Console.Clear();
 
-                for (int i = 0; i < topMenu.Length; i++)
+                foreach (var element in topMenu)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"\t\t     {topMenu[i]}  \t\t");
+                    Console.Write($"\t\t     {element}  \t\t");
                 }
                 Console.WriteLine("\n\n\n");
-
 
                 for (var i = 0; i < productMenu.Count; i++)
                 {
                     if (CounterProductIner == i)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"{productMenu[i]}\n");
+                        productMenu[i].PrintProduct();
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine($"{productMenu[i]}\n");
+                        productMenu[i].PrintProduct();
                     }
-
-
                 }
-                //Console.WriteLine("ПРОБЕЛ - ДОБАВИТЬ ПРОДУКТ....DELETE - УДАЛИТЬ");
+
                 Console.WriteLine("\n\n");
 
                 if (Included.NameUser == "admin")
                 {
                     switch (TopMenu.CounterTopMenu)
                     {
-                        case 0:
-                            Console.WriteLine("ПРОБЕЛ - ДОБАВИТЬ ПРОДУКТ....DELETE - УДАЛИТЬ");
-                            switch (Console.ReadKey().Key)
-                            {
-                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                    CounterProductIner++;
-                                    break;
-                                case ConsoleKey.DownArrow:
-                                    CounterProductIner = 0;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                    CounterProductIner--;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                    return;
-
-                                case ConsoleKey.Delete:
-                                    Console.WriteLine("ПРОДУКТ УДАЛЕН");
-                                    ProductManipulation.DeleteProduct();
-                                    break;
-                                case ConsoleKey.Spacebar:
-                                    CreatingList.AddProduct();//пробел добавить
-                                    break;
-                                case ConsoleKey.Escape:
-                                    return;
-                                /*case ConsoleKey.Enter:
-                                return;*/ //           повесим выполнение покупки
-
-                            }
-                            
-                            break;
-                        case 1:
-                            Console.WriteLine("ПРОБЕЛ - ОБРАБОТАТЬ ЗАКАЗ");
-                            switch (Console.ReadKey().Key)
-                            {
-                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                    CounterProductIner++;
-                                    break;
-                                case ConsoleKey.DownArrow:
-                                    CounterProductIner = 0;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                    CounterProductIner--;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                    return;
-
-                                case ConsoleKey.Spacebar:
-                                    ProductManipulation.BuyOrPerformAdmin();//пробел выполнить
-                                    break;
-                                case ConsoleKey.Escape:
-                                    return;
-                                /*case ConsoleKey.Enter:
-                                return;*/ //           повесим выполнение покупки
-
-                            }
-
-                            break;
-                        case 2:
-                            switch (Console.ReadKey().Key)
-                            {
-                                case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                    CounterProductIner++;
-                                    break;
-                                case ConsoleKey.DownArrow:
-                                    CounterProductIner = 0;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                    CounterProductIner--;
-                                    break;
-                                case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                    return;
-
-                                case ConsoleKey.Escape:
-                                    return;
-                                /*case ConsoleKey.Enter:
-                                return;*/ //           повесим выполнение покупки
-
-                            }
-
-                            break;
+                        case 0: Console.WriteLine("ПРОБЕЛ - ДОБАВИТЬ ПРОДУКТ....DELETE - УДАЛИТЬ"); break;
+                        case 1: Console.WriteLine("ПРОБЕЛ - ОБРАБОТАТЬ ЗАКАЗ"); break;
                     }
+                    switch (Console.ReadKey().Key)
+                    {
+                        case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                            CounterProductIner++;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            CounterProductIner = 0;
+                            break;
+                        case ConsoleKey.UpArrow when CounterProductIner > 0:
+                            CounterProductIner--;
+                            break;
+                        case ConsoleKey.UpArrow when CounterProductIner == 0:
+                            return;
 
-                    
+                        case ConsoleKey.Delete:
+                            Console.WriteLine("ПРОДУКТ УДАЛЕН");
+                            ProductManipulation.DeleteProduct();
+                            break;
+                        case ConsoleKey.Spacebar when TopMenu.CounterTopMenu == 0:
+                            VerticalMenu.GetVerticalMenu();//пробел добавить
+                            break;
+                        case ConsoleKey.Spacebar when TopMenu.CounterTopMenu == 1:
+                            ProductManipulation.BuyOrPerformAdmin();//пробел добавить
+                            break;
+
+                        case ConsoleKey.Escape:
+                            return;
+
+                    }
+                   
                 }
                 else
                 {
-                    if (TopMenu.CounterTopMenu == 0)
+                    switch (TopMenu.CounterTopMenu)
                     {
-                        Console.WriteLine("ENTER - ДОБАВИТЬ ПРОДУКТ В КОРЗИНУ");
-                        switch (Console.ReadKey().Key)
-                        {   
-
-                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                CounterProductIner++;
-                                break;
-                            case ConsoleKey.DownArrow:
-                                CounterProductIner = 0;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                CounterProductIner--;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                return;
-                            case ConsoleKey.Escape:
-                                return;
-                            case ConsoleKey.Enter:
-                                ProductManipulation.AddInCart();
-                                break;
-
-
-                        }
+                        case 0: Console.WriteLine("ENTER - ДОБАВИТЬ ПРОДУКТ В КОРЗИНУ"); break;
+                        case 1: Console.WriteLine("ПРОБЕЛ - ЗАКАЗАТЬ....DELETE - УДАЛИТЬ"); break;
                     }
-                    else if (TopMenu.CounterTopMenu == 1)
+                    switch (Console.ReadKey().Key)
                     {
-                        Console.WriteLine("ПРОБЕЛ - ЗАКАЗАТЬ....DELETE - УДАЛИТЬ");
-                        switch (Console.ReadKey().Key)
-                        {
-                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                CounterProductIner++;
-                                break;
-                            case ConsoleKey.DownArrow:
-                                CounterProductIner = 0;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                CounterProductIner--;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                return;
+                        
+                        case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
+                            CounterProductIner++;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            CounterProductIner = 0;
+                            break;
+                        case ConsoleKey.UpArrow when CounterProductIner > 0:
+                            CounterProductIner--;
+                            break;
+                        case ConsoleKey.UpArrow when CounterProductIner == 0:
+                            return;
+                        case ConsoleKey.Escape:
+                            return;
+                        case ConsoleKey.Enter when TopMenu.CounterTopMenu == 0:
+                            ProductManipulation.AddInCart();
+                            break;
 
-                            case ConsoleKey.Delete:
-                                ProductManipulation.DeleteFromCart();
-                                break;
-                            case ConsoleKey.Escape:
-                                return;
-                            case ConsoleKey.Spacebar:
-                                ProductManipulation.BuyOrPerform();//пробел выполнить
-                                break;
+                        case ConsoleKey.Spacebar when TopMenu.CounterTopMenu == 1:
+                            ProductManipulation.BuyOrPerform();//пробел выполнить заказ
+                            break;
+                        case ConsoleKey.Delete when TopMenu.CounterTopMenu == 1:
+                            ProductManipulation.DeleteFromCart();
+                            break;
 
-
-                        }
                     }
-                    else if (TopMenu.CounterTopMenu == 2)
-                    {
-                        switch (Console.ReadKey().Key)
-                        {
-                            case ConsoleKey.DownArrow when CounterProductIner < productMenu.Count - 1:
-                                CounterProductIner++;
-                                break;
-                            case ConsoleKey.DownArrow:
-                                CounterProductIner = 0;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner > 0:
-                                CounterProductIner--;
-                                break;
-                            case ConsoleKey.UpArrow when CounterProductIner == 0:
-                                return;
-
-                      
-                                
-                            case ConsoleKey.Escape:
-                                return;
-                            
-
-
-                        }
-                    }
-
+                    
                 }
 
             }

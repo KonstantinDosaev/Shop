@@ -10,7 +10,7 @@ namespace Shop
     {
         public static void DeleteProduct()
         {
-            List<string> priceList = Serialization.DeSerializationStrings();
+            List<Product> priceList = Serialization.DeSerializationStrings();
 
             for (var i = 0; i < priceList.Count; i++)
             {
@@ -25,8 +25,8 @@ namespace Shop
         }
         public static void AddInCart()
         {
-            List<string> priceList = Serialization.DeSerializationStrings();
-            List<string> cartList = Serialization.DeSerializationCart();
+            List<Product> priceList = Serialization.DeSerializationStrings();
+            List<Product> cartList = Serialization.DeSerializationStrings(Included.NameUser,"cart");
 
             for (var i = 0; i < priceList.Count; i++)
             {
@@ -35,45 +35,44 @@ namespace Shop
                     cartList.Add(priceList[i]);
                 }
 
-
             }
 
-            Serialization.SerializationCart(cartList);
+            Serialization.SerializationString(cartList, Included.NameUser, "cart");
 
         }
         public static void BuyOrPerform()
         {
-            List<string> historyList = Serialization.DeSerializationHistory();
-            List<string> cartList = Serialization.DeSerializationCart();
-            List<string> adminList = Serialization.DeSerializationCartAdmin();
+            List<Product> historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
+            List<Product> cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+            List<Product> adminList = Serialization.DeSerializationStrings("admin", "cart");
 
 
-                historyList.AddRange(cartList);
-                adminList.AddRange(cartList);
-                cartList = new List<string>();
+            historyList.AddRange(cartList);
+            adminList.AddRange(cartList);
+            cartList = new List<Product>();
 
 
-            Serialization.SerializationHystory(historyList);
-            Serialization.SerializationCart(cartList);
-            Serialization.SerializationCartAdmin(adminList);
+            Serialization.SerializationString(historyList, Included.NameUser, "history");
+            Serialization.SerializationString(cartList, Included.NameUser, "cart");
+            Serialization.SerializationString(adminList, "admin", "cart");
 
 
         }
         public static void BuyOrPerformAdmin()
         {
-            List<string> historyList = Serialization.DeSerializationHistoryAdmin();
+            List<Product> historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
 
-            List<string> adminList = Serialization.DeSerializationCartAdmin();
+            List<Product> adminList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
 
 
             historyList.AddRange(adminList);
-            
-            adminList = new List<string>();
+
+            adminList = new List<Product>();
 
 
-            Serialization.SerializationHystoryAdmin(historyList);
- 
-            Serialization.SerializationCartAdmin(adminList);
+            Serialization.SerializationString(historyList, Included.NameUser, "history");
+
+            Serialization.SerializationString(adminList, Included.NameUser, "cart");
 
 
         }
@@ -81,7 +80,7 @@ namespace Shop
 
         public static void DeleteFromCart()
         {
-            List<string> priceList = Serialization.DeSerializationCart();
+            List<Product> priceList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
 
             for (var i = 0; i < priceList.Count; i++)
             {
@@ -91,7 +90,7 @@ namespace Shop
                 }
             }
 
-            Serialization.SerializationCart(priceList);
+            Serialization.SerializationString(priceList, Included.NameUser, "cart");
 
         }
     }

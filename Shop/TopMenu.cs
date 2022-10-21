@@ -10,10 +10,17 @@ namespace Shop
     {
 
         public static int CounterTopMenu;
-        public static  void LaunchMenu()
+        public static string TopMenuElement2 = "КОРЗИНА";
+        public static string TopMenuElement3 = "ЗАКАЗЫВАЛИ РАНЕЕ";
+        public static  void LaunchTopMenu()
         {
-
-            string[] topMenu = { "ПРАЙСЛИСТ", Included.TopMenuElement2, Included.TopMenuElement3 };
+            if (Included.NameUser == "admin")
+            {
+                TopMenuElement2 = "ЛИСТ ОЖИДАНИЯ";
+                TopMenuElement3 = "ВЫПОЛНЕННЫЕ ЗАКАЗЫ";
+            }
+            
+            string[] topMenu = { "ПРАЙСЛИСТ", TopMenuElement2, TopMenuElement3 };
             while (true)
             {
                 Console.Clear();

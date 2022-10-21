@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,159 +11,68 @@ namespace Shop
 {
     internal class Serialization
     {
-        public string User = Included.NameUser;
-        public static void SerializationString(List< string> priceListArr)
+      public static void SerializationString(List<Product> priceListArr)
         {
-            //ввод в JSON
-            priceListArr.Remove("Данные отсутствуют");
-            var personJson = JsonConvert.SerializeObject(priceListArr);
-            StreamWriter file = File.CreateText("person.json");
-            file.WriteLine(personJson);
-            file.Close();
+            //priceListArr.Remove("Данные отсутствуют");
 
+            BinaryFormatter formatter = new BinaryFormatter();
 
-
-        }
-        public static void SerializationCart(List<string> priceListArr)
-        {
-            //ввод в JSON
-            priceListArr.Remove("Данные отсутствуют");
-            var personJson = JsonConvert.SerializeObject(priceListArr);
-            StreamWriter file = File.CreateText($"{Included.NameUser}cart.json");
-            file.WriteLine(personJson);
-            file.Close();
-
-
-
-        }
-        public static void SerializationHystory(List<string> priceListArr)
-        {
-            //ввод в JSON
-            priceListArr.Remove("Данные отсутствуют");
-            var personJson = JsonConvert.SerializeObject(priceListArr);
-            StreamWriter file = File.CreateText($"{Included.NameUser}hystory.json");
-            file.WriteLine(personJson);
-            file.Close();
-
-
-
-        }
-        public static void SerializationHystoryAdmin(List<string> priceListArr)
-        {
-            //ввод в JSON
-            priceListArr.Remove("Данные отсутствуют");
-            var personJson = JsonConvert.SerializeObject(priceListArr);
-            StreamWriter file = File.CreateText($"adminhystory.json");
-            file.WriteLine(personJson);
-            file.Close();
-
-
-
-        }
-
-        public static void SerializationCartAdmin(List<string> priceListArr)
-        {
-            //ввод в JSON
-            
-                priceListArr.Remove("Данные отсутствуют");
-            
-            var personJson = JsonConvert.SerializeObject(priceListArr);
-            StreamWriter file = File.CreateText($"admincart.json");
-            file.WriteLine(personJson);
-            file.Close();
-
-
-
-        }
-
-        public static List<string> DeSerializationCart()
-        {
-            //вывод из JSON
-
-            if (File.Exists($"{Included.NameUser}cart.json"))
+            using (FileStream stream = new FileStream(@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat", FileMode.Create))
             {
-                string data = File.ReadAllText($"{Included.NameUser}cart.json");
+                formatter.Serialize(stream, priceListArr);
+            }
+        }
+        public static void SerializationString(List<Product> priceListArr,string name, string fillName)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
 
-                List<string> person = JsonConvert.DeserializeObject<List<string>>(data);
+            using (FileStream stream = new FileStream($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{ fillName}.dat", FileMode.Create))
+            {
+                formatter.Serialize(stream, priceListArr);
+                
+            }
+        }
 
-                return person;
+
+        public static List<Product> DeSerializationStrings()
+        {
+            if (File.Exists($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat"))
+            {
+
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                using (FileStream stream = new FileStream(@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat", FileMode.Open))
+                {
+                    List<Product> priceListArr = (List<Product>)formatter.Deserialize(stream);
+                   return priceListArr;
+                }
+
+
             }
             else
             {
-                List<string> f = new List<string>() { "Данные отсутствуют" };
+                List<Product> f = new List<Product>();
                 return f;
             }
         }
-
-        public static List<string> DeSerializationHistory()
+        public static List<Product> DeSerializationStrings(string name,string fillName)
         {
-            //вывод из JSON
-
-            if (File.Exists($"{Included.NameUser}hystory.json"))
+            if (File.Exists($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{fillName}.dat"))
             {
-                string data = File.ReadAllText($"{Included.NameUser}hystory.json");
 
-                List<string> person = JsonConvert.DeserializeObject<List<string>>(data);
+                BinaryFormatter formatter = new BinaryFormatter();
 
-                return person;
+                using (FileStream stream = new FileStream($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{fillName}.dat", FileMode.Open))
+                {
+                    List<Product> priceListArr = (List<Product>)formatter.Deserialize(stream);
+                    return priceListArr;
+                }
+
+
             }
             else
             {
-                List<string> f = new List<string>() { "Данные отсутствуют" };
-                return f;
-            }
-        }
-        public static List<string> DeSerializationHistoryAdmin()
-        {
-            //вывод из JSON
-
-            if (File.Exists($"adminhystory.json"))
-            {
-                string data = File.ReadAllText($"adminhystory.json");
-
-                List<string> person = JsonConvert.DeserializeObject<List<string>>(data);
-
-                return person;
-            }
-            else
-            {
-                List<string> f = new List<string>() { "Данные отсутствуют" };
-                return f;
-            }
-        }
-        public static List<string> DeSerializationCartAdmin()
-        {
-            //вывод из JSON
-
-            if (File.Exists($"admincart.json"))
-            {
-                string data = File.ReadAllText($"admincart.json");
-
-                List<string> person = JsonConvert.DeserializeObject<List<string>>(data);
-
-                return person;
-            }
-            else
-            {
-                List<string> f = new List<string>() { "Данные отсутствуют" };
-                return f;
-            }
-        }
-        public static List<string> DeSerializationStrings()
-        {
-            //вывод из JSON
-
-            if (File.Exists("person.json"))
-            {
-                string data = File.ReadAllText("person.json");
-
-                List <string> person = JsonConvert.DeserializeObject<List<string>>(data);
-
-                return person;
-            }
-            else
-            {
-                List<string> f = new List<string>() { "Данные отсутствуют" };
+                List<Product> f = new List<Product>();
                 return f;
             }
         }
