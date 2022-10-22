@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop
+﻿namespace Shop
 {
     internal class VerticalMenu
     {
@@ -13,7 +7,7 @@ namespace Shop
         public static void GetVerticalMenu()
         {
             
-            List<string> variantProduct = new List<string>(){ "ВИДЕОКАРТА","ЖЕСТКИЙ ДИСК" };
+            var variantProduct = new List<string>(){ "ВИДЕОКАРТА","ЖЕСТКИЙ ДИСК" };
             while (true)
             { 
                 Console.Clear();

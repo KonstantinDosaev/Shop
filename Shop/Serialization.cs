@@ -1,13 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Shop
 {
@@ -40,7 +32,7 @@ namespace Shop
             if (File.Exists($@"jsonSave\PriceList.json"))
             {
                 var newStockholder = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText(@"jsonSave\PriceList.json"), TypSettings());
-                return newStockholder ?? new List<Product>();
+                if (newStockholder != null) return newStockholder;
             }
             var fall = new List<Product>();
             return fall;
@@ -51,7 +43,7 @@ namespace Shop
             if (File.Exists($@"jsonSave\{name}{fillName}.json"))
             {
                 var newStockholder = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText($@"jsonSave\{name}{fillName}.json"), TypSettings());
-                return newStockholder ?? new List<Product>();
+                if (newStockholder != null) return newStockholder;
             }
             var fall = new List<Product>();
             return fall;

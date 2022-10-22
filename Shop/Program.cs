@@ -1,72 +1,38 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+﻿using Shop;
 
-namespace Shop
+//VideoCard nvid = new VideoCard("Видеокрта", "nVidia", "1660", 6, "Pcie3", 5, 55);
+//VideoCard rad = new VideoCard("Видеокрта", "AMD", "3060", 8, "Pcie4", 66, 444);
+//HardDrive kingst = new HardDrive("Жесткий диск", "Kingston", "ff222", 512, 7600, 445, 554);
+//HardDrive kings11t = new HardDrive("Жесткий диск", "Kingston1111", "ff222222222", 512, 7600, 445, 554);
+//List<Product> price = new List<Product> { nvid, kingst, rad, kings11t };
+//Serialization.SerializationString(price);
+
+
+Included.IncludedInProgram();
+
+while (true)
 {
-    class Program
+    TopMenu.LaunchTopMenu();
+
+    switch (TopMenu.CounterTopMenu)
     {
-
-
-        static void Main(string[] args)
+        case 0:
         {
-            //VideoCard nvid = new VideoCard("Видеокрта", "nVidia", "1660", 6, "Pcie3", 5, 55);
-            //VideoCard rad = new VideoCard("Видеокрта", "AMD", "3060", 8, "Pcie4", 66, 444);
-            //HardDrive kingst = new HardDrive("Жесткий диск", "Kingston", "ff222", 512, 7600, 445, 554);
-            //HardDrive kings11t = new HardDrive("Жесткий диск", "Kingston1111", "ff222222222", 512, 7600, 445, 554);
-            //List<Product> price = new List<Product> { nvid, kingst, rad, kings11t };
-            //Serialization.SerializationString(price);
-
-
-            Included.IncludedInProgram();
-
-
-            //CreatingList.AddProduct();
-
-            while (true)
-            {
-                //List<string> cartList = Serialization.DeSerializationCart();
-
-                //List<string> history;
-                //if (Included.NameUser == "admin")
-                //{
-                //    history = Serialization.DeSerializationHistoryAdmin();
-                //}
-                //else { history = Serialization.DeSerializationHistory();}
-
-                TopMenu.LaunchTopMenu();
-
-                switch (TopMenu.CounterTopMenu)
-                {
-                    case 0:
-                    {
-                        var priceList = Serialization.DeSerializationStrings();
-                        PriceList.LaunchPrice(priceList);
-                        break;
-                    }
-                    case 1:
-                    {
-                        var cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
-                        PriceList.LaunchPrice(cartList);
-                        break;
-                    }
-                    case 2:
-                    {
-                        var history = Serialization.DeSerializationStrings(Included.NameUser, "history");
-                        PriceList.LaunchPrice(history);
-                        break;
-                    }
-                }
-            }
-
-
-
-
-
-
+            var priceList = Serialization.DeSerializationStrings();
+            PriceList.LaunchPrice(priceList);
+            break;
         }
-
-        
+        case 1:
+        {
+            var cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+            PriceList.LaunchPrice(cartList);
+            break;
+        }
+        case 2:
+        {
+            var history = Serialization.DeSerializationStrings(Included.NameUser, "history");
+            PriceList.LaunchPrice(history);
+            break;
+        }
     }
 }
