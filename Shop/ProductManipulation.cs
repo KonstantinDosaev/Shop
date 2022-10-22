@@ -10,7 +10,7 @@ namespace Shop
     {
         public static void DeleteProduct()
         {
-            List<Product> priceList = Serialization.DeSerializationStrings();
+            var priceList = Serialization.DeSerializationStrings();
 
             for (var i = 0; i < priceList.Count; i++)
             {
@@ -25,8 +25,8 @@ namespace Shop
         }
         public static void AddInCart()
         {
-            List<Product> priceList = Serialization.DeSerializationStrings();
-            List<Product> cartList = Serialization.DeSerializationStrings(Included.NameUser,"cart");
+            var priceList = Serialization.DeSerializationStrings();
+            var cartList = Serialization.DeSerializationStrings(Included.NameUser,"cart");
 
             for (var i = 0; i < priceList.Count; i++)
             {
@@ -42,9 +42,9 @@ namespace Shop
         }
         public static void BuyOrPerform()
         {
-            List<Product> historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
-            List<Product> cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
-            List<Product> adminList = Serialization.DeSerializationStrings("admin", "cart");
+            var historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
+            var cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+            var adminList = Serialization.DeSerializationStrings("admin", "cart");
 
 
             historyList.AddRange(cartList);
@@ -60,9 +60,9 @@ namespace Shop
         }
         public static void BuyOrPerformAdmin()
         {
-            List<Product> historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
+            var historyList = Serialization.DeSerializationStrings(Included.NameUser, "history");
 
-            List<Product> adminList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+            var adminList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
 
 
             historyList.AddRange(adminList);
@@ -80,7 +80,7 @@ namespace Shop
 
         public static void DeleteFromCart()
         {
-            List<Product> priceList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+            var priceList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
 
             for (var i = 0; i < priceList.Count; i++)
             {

@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Shop
@@ -28,7 +26,6 @@ namespace Shop
 
             while (true)
             {
-
                 //List<string> cartList = Serialization.DeSerializationCart();
 
                 //List<string> history;
@@ -40,20 +37,26 @@ namespace Shop
 
                 TopMenu.LaunchTopMenu();
 
-                if (TopMenu.CounterTopMenu == 0)
+                switch (TopMenu.CounterTopMenu)
                 {
-                    var priceList = Serialization.DeSerializationStrings();
-                    PriceList.LaunchPrice(priceList);
-                }
-                else if (TopMenu.CounterTopMenu == 1)
-                {
-                    var cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
-                    PriceList.LaunchPrice(cartList);
-                }
-                else if (TopMenu.CounterTopMenu == 2)
-                {
-                    var history = Serialization.DeSerializationStrings(Included.NameUser, "history");
-                    PriceList.LaunchPrice(history);
+                    case 0:
+                    {
+                        var priceList = Serialization.DeSerializationStrings();
+                        PriceList.LaunchPrice(priceList);
+                        break;
+                    }
+                    case 1:
+                    {
+                        var cartList = Serialization.DeSerializationStrings(Included.NameUser, "cart");
+                        PriceList.LaunchPrice(cartList);
+                        break;
+                    }
+                    case 2:
+                    {
+                        var history = Serialization.DeSerializationStrings(Included.NameUser, "history");
+                        PriceList.LaunchPrice(history);
+                        break;
+                    }
                 }
             }
 

@@ -1,80 +1,61 @@
-﻿//using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Shop
 {
     internal class Serialization
     {
-      public static void SerializationString(List<Product> priceListArr)
+        private static JsonSerializerSettings TypSettings()
         {
-            //priceListArr.Remove("Данные отсутствуют");
-
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream stream = new FileStream(@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat", FileMode.Create))
-            {
-                formatter.Serialize(stream, priceListArr);
-            }
-        }
-        public static void SerializationString(List<Product> priceListArr,string name, string fillName)
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream stream = new FileStream($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{ fillName}.dat", FileMode.Create))
-            {
-                formatter.Serialize(stream, priceListArr);
-                
-            }
+            var js = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            return js;
         }
 
+        public static void SerializationString(List<Product> priceListArr)
+        {
+          var jsonString = JsonConvert.SerializeObject(priceListArr, Formatting.Indented, TypSettings()); 
+          
+           using  var file = File.CreateText(@"jsonSave\PriceList.json");
+           file.WriteLine(jsonString);
+        }
+
+        public static void SerializationString(List<Product> priceListArr, string? name, string fillName)
+        {
+            var jsonString = JsonConvert.SerializeObject(priceListArr, Formatting.Indented, TypSettings());
+
+            using var file = File.CreateText($@"jsonSave\{name}{fillName}.json");
+            file.WriteLine(jsonString);
+        }
 
         public static List<Product> DeSerializationStrings()
         {
-            if (File.Exists($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat"))
+            if (File.Exists($@"jsonSave\PriceList.json"))
             {
-
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                using (FileStream stream = new FileStream(@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\PriceState.dat", FileMode.Open))
-                {
-                    List<Product> priceListArr = (List<Product>)formatter.Deserialize(stream);
-                   return priceListArr;
-                }
-
-
+                var newStockholder = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText(@"jsonSave\PriceList.json"), TypSettings());
+                return newStockholder ?? new List<Product>();
             }
-            else
-            {
-                List<Product> f = new List<Product>();
-                return f;
-            }
+            var fall = new List<Product>();
+            return fall;
         }
-        public static List<Product> DeSerializationStrings(string name,string fillName)
+
+        public static List<Product> DeSerializationStrings(string? name, string fillName)
         {
-            if (File.Exists($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{fillName}.dat"))
+            if (File.Exists($@"jsonSave\{name}{fillName}.json"))
             {
-
-                BinaryFormatter formatter = new BinaryFormatter();
-
-                using (FileStream stream = new FileStream($@"C:\Users\Константин\source\repos\Shop\Shop\bin\Debug\net6.0\jsonSave\{name}{fillName}.dat", FileMode.Open))
-                {
-                    List<Product> priceListArr = (List<Product>)formatter.Deserialize(stream);
-                    return priceListArr;
-                }
-
-
+                var newStockholder = JsonConvert.DeserializeObject<List<Product>>(File.ReadAllText($@"jsonSave\{name}{fillName}.json"), TypSettings());
+                return newStockholder ?? new List<Product>();
             }
-            else
-            {
-                List<Product> f = new List<Product>();
-                return f;
-            }
+            var fall = new List<Product>();
+            return fall;
         }
+      
     }
 }

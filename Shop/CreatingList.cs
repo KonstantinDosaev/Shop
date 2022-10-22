@@ -15,7 +15,7 @@ namespace Shop
           
 
 
-          Product addObj = new Product() ;
+          var addObj = new Product() ;
           switch (VerticalMenu.CounterProductVertical)
           {
               case 0:  addObj = new VideoCard(); break;
@@ -27,7 +27,7 @@ namespace Shop
           addObj.FillProduct();
 
 
-          List<Product> priceList = Serialization.DeSerializationStrings();
+          var priceList = Serialization.DeSerializationStrings();
 
           priceList.Add(addObj);
 
