@@ -1,8 +1,19 @@
 ﻿namespace Shop
 {
-    [Serializable]
+
     public class Product
     {
+        public Product(string? typeProduct, string? manufacture, string? model, float purchasePrice, float salePrice)
+        {
+            TypeProduct = typeProduct;
+            Manufacture = manufacture;
+            Model = model;
+            PurchasePrice = purchasePrice;
+            SalePrice = salePrice;
+        }
+
+        public Product() { }
+
         public string? TypeProduct { get; set; }
 
         public string? Manufacture { get; set; }
@@ -33,10 +44,10 @@
             Model = Console.ReadLine();
 
             Console.WriteLine("Закупочная цена:");
-            PurchasePrice = float.Parse(Console.ReadLine()!);
+            PurchasePrice = ProductManipulation.CheckingNumbers();
 
             Console.WriteLine("Цена продажи:");
-            SalePrice = float.Parse(Console.ReadLine()!);
+            SalePrice = ProductManipulation.CheckingNumbers();
         }
 
 

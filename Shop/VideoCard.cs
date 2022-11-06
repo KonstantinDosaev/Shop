@@ -1,8 +1,19 @@
-﻿namespace Shop
+﻿using System.Reflection;
+
+namespace Shop
 {
-    [Serializable]
+    
     internal class VideoCard : Product
     {
+        public VideoCard(string? typeProduct, string? manufacture, string? model, float purchasePrice, float salePrice, float videoMemory, string? connectionInterface) : 
+            base( typeProduct,  manufacture,  model,  purchasePrice, salePrice)
+        {
+            VideoMemory = videoMemory;
+            ConnectionInterface = connectionInterface;
+        }
+
+        public VideoCard() {}
+
         public float VideoMemory { get; set; }
         public string? ConnectionInterface { get; set; }
 
@@ -20,10 +31,10 @@
             base.FillProduct();
 
             Console.WriteLine("Графическая память:");
-            VideoMemory = float.Parse(Console.ReadLine() ?? string.Empty);
+            VideoMemory = ProductManipulation.CheckingNumbers();
 
             Console.WriteLine("Интерфейс подключения:");
-             ConnectionInterface = Console.ReadLine();
+            ConnectionInterface = Console.ReadLine();
 
         }
     }

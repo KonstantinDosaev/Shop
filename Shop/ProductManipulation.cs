@@ -87,5 +87,16 @@
             Serialization.SerializationString(priceList, Included.NameUser, "cart");
 
         }
+
+        public static float CheckingNumbers()
+        {
+            float number;
+            while (!float.TryParse(Console.ReadLine(), out number)) { Console.WriteLine("Вводите числовое значение");}
+
+            return number;
+
+
+
+        }
     }
 }

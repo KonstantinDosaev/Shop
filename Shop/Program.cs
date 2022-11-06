@@ -1,11 +1,6 @@
 ﻿using Shop;
 
-//VideoCard nvid = new VideoCard("Видеокрта", "nVidia", "1660", 6, "Pcie3", 5, 55);
-//VideoCard rad = new VideoCard("Видеокрта", "AMD", "3060", 8, "Pcie4", 66, 444);
-//HardDrive kingst = new HardDrive("Жесткий диск", "Kingston", "ff222", 512, 7600, 445, 554);
-//HardDrive kings11t = new HardDrive("Жесткий диск", "Kingston1111", "ff222222222", 512, 7600, 445, 554);
-//List<Product> price = new List<Product> { nvid, kingst, rad, kings11t };
-//Serialization.SerializationString(price);
+
 
 
 Included.IncludedInProgram();

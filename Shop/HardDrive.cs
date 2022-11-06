@@ -9,6 +9,15 @@ namespace Shop
     [Serializable]
     internal class HardDrive : Product
     {
+        public HardDrive(string? typeProduct, string? manufacture, string? model, float purchasePrice, float salePrice, float memoryCapacity, float rotationSpeed) : 
+            base(typeProduct, manufacture, model, purchasePrice, salePrice)
+        {
+            MemoryCapacity = memoryCapacity;
+            RotationSpeed = rotationSpeed;
+        }
+
+        public HardDrive() { }
+
         public float MemoryCapacity { get; set; }
         public float RotationSpeed { get; set; }
 
@@ -25,10 +34,10 @@ namespace Shop
             base.FillProduct();
 
             Console.WriteLine("Объем памяти:");
-            MemoryCapacity = float.Parse(Console.ReadLine()!);
+            MemoryCapacity = ProductManipulation.CheckingNumbers();
 
             Console.WriteLine("Скорость вращения:");
-            RotationSpeed = float.Parse(Console.ReadLine()!);
+            RotationSpeed = ProductManipulation.CheckingNumbers();
         }
     }
 }
